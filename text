@@ -2458,3 +2458,111 @@ class MainActivity : AppCompatActivity() {
         timePickerDialog.show()
     }
 }
+
+
+BOTH IMPLICIT AND EXPLICIT INTENTS
+
+main.xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="If you click on Explicit example we will navigate to
+second activity within app"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="20dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.223" />
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EXPLICIT INTENT"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.389" />
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="IMPLICIT INTENT"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+second.xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WELCOMEEEE"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="216dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+mainactivity.kt
+package com.example.intent
+import android.content.Intent
+import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Button
+
+class MainActivity : AppCompatActivity() {
+    private lateinit var explicit_btn:Button
+    private lateinit var implicit_btn:Button
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        explicit_btn = findViewById (R.id.button)
+        implicit_btn = findViewById(R.id.button2)
+        explicit_btn.setOnClickListener {
+            val intent= Intent(baseContext,Second::class.java)
+            startActivity(intent)
+        }
+        implicit_btn.setOnClickListener {
+            val intent=Intent(Intent.ACTION_VIEW)
+            intent.data= Uri.parse("https://youtube.com")
+
+            startActivity(intent)
+        }
+    }
+}
+
+secondactivity.kt
+package com.example.intent
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Toast
+
+class Second : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.second)
+        Toast.makeText(applicationContext,"We are moved to second activity",
+            Toast.LENGTH_LONG).show()
+    }
+}
+
