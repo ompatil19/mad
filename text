@@ -2566,3 +2566,362 @@ class Second : AppCompatActivity() {
     }
 }
 
+
+CUSTOM TOAST
+
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/buttonShowToast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="#03A9F4"
+        android:text="Show Custom Toast"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.759"
+        tools:layout_editor_absoluteX="0dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+customtoast.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/customcontainer"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <ImageView
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:src="@drawable/smile"/>
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="This is Custom Toast"
+    android:textSize="24sp"/>
+    </LinearLayout>
+
+Kotlin file
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main) 
+        val b1 = findViewById<Button>(R.id.buttonShowToast)
+        b1.setOnClickListener {
+            val ctoastlayout = layoutInflater.inflate(R.layout.customtoast,findViewById(R.id.customcontainer))
+            val customToast = Toast(this)
+            customToast.view = ctoastlayout
+            customToast.setGravity(Gravity.CENTER,0,0)
+            customToast.duration = Toast.LENGTH_LONG
+            customToast.show()
+        }
+    }
+}
+
+
+LIFECYCLE
+
+package com.example.
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.util.Log
+
+
+class MainActivity : AppCompatActivity() {
+    private val tag = "Main Activity"
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val msg = "onCreate:"
+        //  Log.d(tag,msg)
+        Toast.makeText(applicationContext, msg , Toast.LENGTH_SHORT).show()
+
+    }
+
+    override fun onStart()
+    {
+        super.onStart()
+        val msg = "onStart:"
+        Toast.makeText(applicationContext, msg , Toast.LENGTH_SHORT).show()
+        Log.d(tag, msg)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val msg = "onResume:"
+        Log.d(tag, msg )
+        Toast.makeText(applicationContext, msg , Toast.LENGTH_SHORT).show()
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        val msg = "onPause"
+        Log.d(tag, msg)
+        Toast.makeText(applicationContext, msg , Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        val msg = "onStop"
+        Log.d(tag, msg)
+        Toast.makeText(applicationContext, msg , Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        val msg = "onRestart"
+        Log.d(tag, msg)
+        Toast.makeText(applicationContext, msg , Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val msg = "onDestroy"
+        Log.d(tag, msg)
+        Toast.makeText(applicationContext, msg , Toast.LENGTH_SHORT).show()
+    }
+}
+
+]]]]
+
+
+RADIO
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="133dp"
+        android:layout_marginTop="185dp"
+        android:text="@string/Heading"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/radiogroup1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="300dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Radiobutton1" />
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Radiobutton2"/>
+        <RadioButton
+        android:id="@+id/radioButton3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Radiobutton3" />
+
+        <RadioButton
+            android:id="@+id/radioButton4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="RadioButton4" />
+
+        <RadioButton
+            android:id="@+id/radioButton5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Radiobutton5" />
+
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="133dp"
+        android:layout_marginTop="537dp"
+        android:background="#673AB7"
+        android:text="@string/submit_Button"
+        android:textColor="#F1ECEC"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+strings.xml :
+
+<resources>
+    <string name="app_name">raghu</string>
+    <string name="Heading">Choose a Course</string>
+    <string name="Radiobutton1">CN</string>
+    <string name="Radiobutton2">EMR</string>
+    <string name="Radiobutton3">MAD</string>
+    <string name="Radiobutton4">SEO</string>
+    <string name="Radiobutton5">ADS</string>
+    <string name="submit_Button">Submit</string>
+
+</resources>
+
+
+class MainActivity : AppCompatActivity() {
+    var radioGroup : RadioGroup ?=null
+    lateinit var radioButton: RadioButton
+    private lateinit var button: Button
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+       title = "RadioGroup in Kotlin"
+
+        radioGroup = findViewById(R.id.radiogroup1)
+
+        button = findViewById(R.id.submit)
+
+        button.setOnClickListener{
+
+            val selectedOption :Int = radioGroup!!.checkedRadioButtonId
+            radioButton = findViewById(selectedOption)
+
+            Toast.makeText(baseContext,radioButton.text,Toast.LENGTH_SHORT).show()
+        }
+
+    }
+}
+
+
+SUM
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="141dp"
+        android:layout_marginTop="235dp"
+        android:layout_marginEnd="141dp"
+        android:layout_marginBottom="47dp"
+        android:text="Sum of two numbers"
+        app:layout_constraintBottom_toTopOf="@+id/num1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="149dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="174dp"
+        android:layout_marginBottom="160dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        android:text="Calculate" />
+
+    <EditText
+        android:id="@+id/num1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="101dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="101dp"
+        android:layout_marginBottom="25dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/num2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/num2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="101dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="101dp"
+        android:layout_marginBottom="26dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/num1" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="172dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="200dp"
+        android:layout_marginBottom="27dp"
+        android:text="Result"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/num2" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+Kotlin 
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val num1 = findViewById<EditText>(R.id.num1)
+        val num2 = findViewById<EditText>(R.id.num2)
+        val button = findViewById<Button>(R.id.button)
+        val result = findViewById<TextView>(R.id.textView2)
+        button.setOnClickListener {
+            result.text =
+                "Result:" + (num1.text.toString().toInt() + num2.text.toString().toInt()).toString()
+        }
+    }
+}
+
