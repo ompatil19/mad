@@ -489,71 +489,86 @@ class MainActivity : AppCompatActivity() {
 CANVAS
 
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/imageV"
-        android:layout_width="315dp"
-        android:layout_height="526dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <com.example.canvas.CanvasView
+        android:id="@+id/canvasView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</RelativeLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
 
+mainactivity.kt
+
+// src/main/java/com/example/yourappname/MainActivity.kt
 package com.example.canvas
 
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.ShapeDrawable
-import android.graphics.drawable.shapes.OvalShape
-import android.graphics.drawable.shapes.RectShape
-
 import android.os.Bundle
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val bitmap: Bitmap = Bitmap.createBitmap(700, 1000, Bitmap.Config.ARGB_8888)
-        val canvas: Canvas = Canvas(bitmap)
-        var left = 100
-        var top = 100
-        var right = 600
-        var bottom = 400
+    }
+}
 
+CanvasView.kt
 
-        var shapeDrawable: ShapeDrawable = ShapeDrawable(RectShape())
-        shapeDrawable.setBounds( left, top, right, bottom)
-        shapeDrawable.paint.color = Color.parseColor("#009944")
-        shapeDrawable.draw(canvas)
+// CanvasView.kt
+package com.example.canvas
 
-        shapeDrawable = ShapeDrawable(OvalShape())
-        shapeDrawable.setBounds( 100, 500, 600, 800)
-        shapeDrawable.paint.color = Color.parseColor("#009191")
-        shapeDrawable.draw(canvas)
-        val iv = findViewById<ImageView>(R.id.imageV)
+import android.content.Context
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Path
+import android.util.AttributeSet
+import android.view.View
 
-        iv.background = BitmapDrawable(resources, bitmap)
+class CanvasView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
-        val pCircle = Paint()
-        pCircle.color = Color.BLACK
-        canvas.drawCircle(30f, 30f, 30f, pCircle)
-        val pBackground = Paint()
-        pBackground.color = Color.RED
-        canvas.drawRect(450f, 450f, 500f, 500f,
-            pBackground)
+    private val rectanglePaint = Paint()
+    private val ovalPaint = Paint()
+    private val trianglePaint = Paint()
+
+    init {
+        rectanglePaint.color = Color.BLUE
+        ovalPaint.color = Color.RED
+        trianglePaint.color = Color.GREEN  // Set the color to green for the triangle, for example
+    }
+
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+
+        // Draw Rectangle
+        val rectLeft = 300f
+        val rectTop = 1000f
+        val rectRight = 800f
+        val rectBottom = 1200f
+        canvas.drawRect(rectLeft, rectTop, rectRight, rectBottom, rectanglePaint)
+
+        // Draw Oval
+        val ovalLeft = 500f
+        val ovalTop = 100f
+        val ovalRight = 800f
+        val ovalBottom = 300f
+        canvas.drawOval(ovalLeft, ovalTop, ovalRight, ovalBottom, ovalPaint)
+
+        // Draw Triangle
+        val path = Path()
+        path.moveTo(600f, 700f)  // Starting point (x, y)
+        path.lineTo(500f, 300f)  // Second point (x, y)
+        path.lineTo(700f, 300f)  // Third point (x, y)
+        path.close()            // Close the path to form a closed triangle
+
+        // Draw the triangle on the canvas
+        canvas.drawPath(path, trianglePaint)
     }
 }
 
